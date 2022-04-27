@@ -1,6 +1,11 @@
 version: "2.1"
 services:
-  main:
+  micros.go.mod:
+    image: micros.go.mod
+    build:
+      context: ./
+      dockerfile: ./Dockerfile.mod
+  github.handler:
     labels:
       svc: "github-handler"
     restart: always
@@ -10,6 +15,6 @@ services:
       args:
         - app=github-handler
     ports:
-      - "5555"
+      - 5555:5555
     env_file:
       - ./.env
