@@ -1,6 +1,7 @@
 package releases
 
 import (
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -13,6 +14,9 @@ type Handler struct {
 
 func (o Handler) NewRelease(c echo.Context) error {
 	data, _ := ioutil.ReadAll(c.Request().Body)
-	fmt.Println(string(data))
+	info := map[string]interface{}{}
+	json.Unmarshal(data, &info)
+	indent, _ := json.MarshalIndent(info, "", "\t")
+	fmt.Println(string(indent))
 	return c.JSON(http.StatusCreated, nil)
 }
