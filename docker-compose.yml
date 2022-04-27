@@ -1,0 +1,15 @@
+version: "2.1"
+services:
+  main:
+    labels:
+      svc: "github-handler"
+    restart: always
+    build:
+      context: ./ # esta variable se sobreescribe Ejm. docker-compose.prod.yaml
+      dockerfile: ./Dockerfile
+      args:
+        - app=github-handler
+    ports:
+      - "5555"
+    env_file:
+      - ./.env
